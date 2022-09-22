@@ -24,10 +24,10 @@ ABOUT = load_about()
 setup(
     name="tutor-mfe",
     version=ABOUT["__version__"],
-    url="https://github.com/overhangio/tutor-mfe",
+    url="https://github.com/lektorium-tutor/tutor-mfe",
     project_urls={
-        "Code": "https://github.com/overhangio/tutor-mfe",
-        "Issue tracker": "https://github.com/overhangio/tutor-mfe/issues",
+        "Code": "https://github.com/lektorium-tutor/tutor-mfe",
+        "Issue tracker": "https://github.com/lektorium-tutor/tutor-mfe/issues",
     },
     license="AGPLv3",
     author="Overhang.IO",

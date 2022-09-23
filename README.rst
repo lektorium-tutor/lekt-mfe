@@ -1,7 +1,7 @@
-Micro Frontend base plugin for `Tutor <https://docs.tutor.overhang.io>`__
+Micro Frontend base plugin for `Lekt <https://docs.tutor.overhang.io>`__
 =========================================================================
 
-This plugin makes it possible to easily add micro frontend (MFE) applications on top of an Open edX platform that runs with Tutor. To learn more about MFEs, please check the `official Open edX documentation <https://edx.readthedocs.io/projects/edx-developer-docs/en/latest/developers_guide/micro_frontends_in_open_edx.html>`__.
+This plugin makes it possible to easily add micro frontend (MFE) applications on top of an Open edX platform that runs with Lekt. To learn more about MFEs, please check the `official Open edX documentation <https://edx.readthedocs.io/projects/edx-developer-docs/en/latest/developers_guide/micro_frontends_in_open_edx.html>`__.
 
 In addition, this plugin comes with a few MFEs which are enabled by default:
 
@@ -17,20 +17,20 @@ Installation
 
 ::
 
-    pip install tutor-mfe
+    pip install lekt-mfe
 
 Usage
 -----
 
 ::
 
-    tutor plugins enable mfe
-    tutor local quickstart
+    lekt plugins enable mfe
+    lekt local quickstart
 
 Account
 ~~~~~~~
 
-.. image:: https://raw.githubusercontent.com/overhangio/tutor-mfe/master/screenshots/account.png
+.. image:: https://raw.githubusercontent.com/overhangio/lekt-mfe/master/screenshots/account.png
     :alt: Account MFE screenshot
 
 An MFE to manage account-specific information for every LMS user. Each user's account page is available at ``http(s)://{{ MFE_HOST }}/account``. For instance, when running locally: https://apps.local.overhang.io/account.
@@ -38,7 +38,7 @@ An MFE to manage account-specific information for every LMS user. Each user's ac
 Gradebook
 ~~~~~~~~~
 
-.. image:: https://raw.githubusercontent.com/overhangio/tutor-mfe/master/screenshots/gradebook.png
+.. image:: https://raw.githubusercontent.com/overhangio/lekt-mfe/master/screenshots/gradebook.png
     :alt: Gradebook MFE screenshot
 
 This instructor-only MFE is for viewing individual and aggregated grade results for a course. To access this MFE, go to a course 🡒 🡒 Instructor tab 🡒 Student Admin 🡒 View gradebook. The URL should be: ``http(s)://{{ MFE_HOST }}/gradebook/{{ course ID }}``. When running locally, the gradebook of the demo course is available at: http://apps.local.overhang.io/gradebook/course-v1:edX+DemoX+Demo_Course
@@ -46,7 +46,7 @@ This instructor-only MFE is for viewing individual and aggregated grade results 
 Learning
 ~~~~~~~~
 
-.. image:: https://raw.githubusercontent.com/overhangio/tutor-mfe/master/screenshots/learning.png
+.. image:: https://raw.githubusercontent.com/overhangio/lekt-mfe/master/screenshots/learning.png
     :alt: Learning MFE screenshot
 
 The Learning MFE replaces the former courseware, which is the core part of the LMS where students follow courses.
@@ -54,7 +54,7 @@ The Learning MFE replaces the former courseware, which is the core part of the L
 Profile
 ~~~~~~~~~
 
-.. image:: https://raw.githubusercontent.com/overhangio/tutor-mfe/master/screenshots/profile.png
+.. image:: https://raw.githubusercontent.com/overhangio/lekt-mfe/master/screenshots/profile.png
     :alt: Profile MFE screenshot
 
 Edit and display user-specific profile information. The profile page of every user is visible at ``http(s)://{{ MFE_HOST }}/profile/u/{{ username }}``. For instance, when running locally, the profile page of the "admin" user is: http://apps.local.overhang.io/profile/u/admin.
@@ -65,7 +65,7 @@ MFE management
 Adding new MFEs
 ~~~~~~~~~~~~~~~
 
-Other Tutor plugin developers can take advantage of this plugin to deploy their own MFEs. To declare a new MFE, a new configuration setting should be created with the "_MFE_APP" suffix. This configuration setting should include the name, repository, development port and production/development settings for the MFE. For example::
+Other Lekt plugin developers can take advantage of this plugin to deploy their own MFEs. To declare a new MFE, a new configuration setting should be created with the "_MFE_APP" suffix. This configuration setting should include the name, repository, development port and production/development settings for the MFE. For example::
 
     config = {
         "defaults": {
@@ -92,9 +92,9 @@ Disabling individual MFEs
 
 To disable an existing MFE, set its corresponding configuration setting to "null". For instance, to disable the MFEs that ship with this plugin::
 
-    tutor config save --set MFE_ACCOUNT_MFE_APP=null
-    tutor config save --set MFE_GRADEBOOK_MFE_APP=null
-    tutor config save --set MFE_PROFILE_MFE_APP=null
+    lekt config save --set MFE_ACCOUNT_MFE_APP=null
+    lekt config save --set MFE_GRADEBOOK_MFE_APP=null
+    lekt config save --set MFE_PROFILE_MFE_APP=null
 
 Adding custom translations to your MFEs
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -102,9 +102,9 @@ Adding custom translations to your MFEs
 This plugin makes it possible to change existing and add new translation strings to MFEs. Here is how to do it:
 
 1. Identify the ID of the string you would like to translate. For instance, the ID of the "Account Information" string in the account MFE is "account.settings.section.account.information" (see `source <https://github.com/edx/frontend-app-account/blob/1444831833cad4746b9ed14618a499b425ccc907/src/account-settings/AccountSettingsPage.messages.jsx#L34>`__).
-2. Create a folder and i18n file corresponding to your MFE app and language in the Tutor root. This location of this file should be ``/path/to/tutor/env/plugins/mfe/build/mfe/i18n/<app name>/<language code>.json``. For instance, to add French ("fr") translation strings to the account MFE, run::
+2. Create a folder and i18n file corresponding to your MFE app and language in the Lekt root. This location of this file should be ``/path/to/lekt/env/plugins/mfe/build/mfe/i18n/<app name>/<language code>.json``. For instance, to add French ("fr") translation strings to the account MFE, run::
 
-    cd "$(tutor config printroot)/env/plugins/mfe/build/mfe/i18n/"
+    cd "$(lekt config printroot)/env/plugins/mfe/build/mfe/i18n/"
     mkdir account
     touch account/fr.json
 
@@ -116,8 +116,8 @@ This plugin makes it possible to change existing and add new translation strings
 
 4. Rebuild the MFE image and restart the MFE with::
 
-    tutor images build mfe
-    tutor local start -d
+    lekt images build mfe
+    lekt local start -d
 
 Your custom translation strings should now appear in your app.
 
@@ -178,21 +178,21 @@ In some cases, for example when using `GitLab's NPM package registry <https://do
 Running MFEs on Kubernetes
 --------------------------
 
-The MFE plugin works a bit differently than other Tutor plugins. MFEs are static bundles of js/html/css code that must be re-generated after every change to their configuration. In practice, this means that the "mfe" Docker image should be re-built and re-deployed every time we run ``tutor config save``. This happens transparently when running Open edX locally (with ``tutor local``). But when running on Kubernetes, you need to re-build the "mfe" image manually and push it to a remote registry. In effect, you must run::
+The MFE plugin works a bit differently than other Lekt plugins. MFEs are static bundles of js/html/css code that must be re-generated after every change to their configuration. In practice, this means that the "mfe" Docker image should be re-built and re-deployed every time we run ``lekt config save``. This happens transparently when running Open edX locally (with ``lekt local``). But when running on Kubernetes, you need to re-build the "mfe" image manually and push it to a remote registry. In effect, you must run::
 
-    tutor config save --set MFE_DOCKER_IMAGE=docker.io/yourusername/openedx-mfe:latest
-    tutor images build mfe
-    tutor images push mfe
-    tutor k8s start
+    lekt config save --set MFE_DOCKER_IMAGE=docker.io/yourusername/openedx-mfe:latest
+    lekt images build mfe
+    lekt images push mfe
+    lekt k8s start
 
-We consider that this situation is less than ideal. An improvement would be to self-host a Docker registry and an image-building pipeline on Kubernetes. If you are interested in such a solution, please let your voice be heard on the `Tutor community forums <https://discuss.overhang.io>`__.
+We consider that this situation is less than ideal. An improvement would be to self-host a Docker registry and an image-building pipeline on Kubernetes. If you are interested in such a solution, please let your voice be heard on the `Lekt community forums <https://discuss.overhang.io>`__.
 
 MFE development
 ---------------
 
-Tutor makes it possible to run any MFE in development mode. For instance, to run the "profile" MFE::
+Lekt makes it possible to run any MFE in development mode. For instance, to run the "profile" MFE::
 
-    tutor dev start profile
+    lekt dev start profile
 
 Then, access http://apps.local.overhang.io:1995/profile/u/YOURUSERNAME
 
@@ -200,7 +200,7 @@ You can also bind-mount your own fork of an MFE. For example::
 
     cd /path/to/frontend-app-profile
     npm install  # Ensure NPM requirements are installed into your fork.
-    tutor dev start --mount=. profile
+    lekt dev start --mount=. profile
 
 The changes you make to your fork will be automatically picked up and hot-reloaded by your development server.
 
@@ -208,38 +208,38 @@ This works for custom MFEs, as well. For example, if you added your own MFE name
 
     cd /path/to/frontend-app-myapp
     npm install
-    tutor dev start --mount=. myapp
+    lekt dev start --mount=. myapp
 
 However, if you try to bind-mount an unknown MFE, you will see a Docker Compose error such as::
 
   ERROR: The Compose file is invalid because:
   Service myapp has neither an image nor a build context specified. At least one must be provided.
 
-Please note that bind-mounting a fork is only available for development (``tutor dev ...``), since production MFEs are compiled and served out of a single container. If you want to use a fork of an MFE in production, then you will need to set the repository URL in ``$(tutor config printroot)/config.yml``::
+Please note that bind-mounting a fork is only available for development (``lekt dev ...``), since production MFEs are compiled and served out of a single container. If you want to use a fork of an MFE in production, then you will need to set the repository URL in ``$(lekt config printroot)/config.yml``::
 
     MFE_PROFILE_MFE_APP
         name: profile
         repository: "https://github.com/YOUR_FORK_ORGANIZATION/frontend-app-profile"
         port: 1995
 
-and then rebuild the MFE container image with ``tutor images build mfe``.
+and then rebuild the MFE container image with ``lekt images build mfe``.
 
 Uninstall
 ---------
 
 To disable this plugin run::
 
-    tutor plugins disable mfe
+    lekt plugins disable mfe
 
 You will also have to manually remove a few waffle flags::
 
-    tutor local run lms ./manage.py lms waffle_delete --flags account.redirect_to_microfrontend
-    tutor local run lms ./manage.py lms waffle_delete --flags learner_profile.redirect_to_microfrontend
-    tutor local run lms site-configuration unset ENABLE_PROFILE_MICROFRONTEND
+    lekt local run lms ./manage.py lms waffle_delete --flags account.redirect_to_microfrontend
+    lekt local run lms ./manage.py lms waffle_delete --flags learner_profile.redirect_to_microfrontend
+    lekt local run lms site-configuration unset ENABLE_PROFILE_MICROFRONTEND
 
 Finally, restart the platform with::
 
-    tutor local quickstart
+    lekt local quickstart
 
 License
 -------

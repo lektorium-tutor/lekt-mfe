@@ -22,10 +22,17 @@ Installation
 Usage
 -----
 
-::
+To enable this plugin, run::
 
     lekt plugins enable mfe
     lekt local quickstart
+
+When running the plugin in production, it is recommended that you set up a catch-all CNAME for subdomains at the DNS provider: see the `Configuring DNS Records <https://docs.tutor.overhang.io/install.html#configuring-dns-records>`__ section in the Tutor documentation for more details.  This way, the plugin will work out of the box with no additional configuration.  Which is to say, if your ``LMS_HOST`` is set to `myopenedx.com` the MFEs this plugin provides will be accessible under `apps.myopenedx.com` by default.
+
+To check what the current value of `MFE_HOST` is actually set to, run the following::
+
+    tutor config printvalue MFE_HOST
+
 
 Account
 ~~~~~~~
@@ -111,7 +118,7 @@ This plugin makes it possible to change existing and add new translation strings
 3. Add your entries to this file in JSON format, where the key is the string ID and the value is the actual string. For instance::
 
     {
-      "account.settings.section.account.information": "Information du compte POUAC"
+      "account.settings.section.account.information": "Information du compte"
     }
 
 4. Rebuild the MFE image and restart the MFE with::
@@ -150,7 +157,7 @@ To install custom components for the MFEs, such as the `header <https://github.c
             # npm package
             RUN npm install '@edx/frontend-component-header@npm:@edx/frontend-component-header-edx@latest'
             # git repository
-            RUN npm install '@edx/frontend-component-footer@git+https://github.com/edx/frontend-component-header-edx.git'
+            RUN npm install '@edx/frontend-component-footer@git+https://github.com/edx/frontend-component-footer-edx.git'
 
 The same applies to installing a custom `brand <https://github.com/openedx/brand-openedx>`_ package:
 ::
@@ -240,6 +247,11 @@ You will also have to manually remove a few waffle flags::
 Finally, restart the platform with::
 
     lekt local quickstart
+
+Troubleshooting
+---------------
+
+This Tutor plugin is maintained by Adolfo Brandes from `tCRIL <https://openedx.org>`__. Community support is available from the official `Open edX forum <https://discuss.openedx.org>`__. Do you need help with this plugin? See the `troubleshooting <https://docs.tutor.overhang.io/troubleshooting.html>`__ section from the Tutor documentation.
 
 License
 -------

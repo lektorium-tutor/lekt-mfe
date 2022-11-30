@@ -48,6 +48,14 @@ config = {
             "name": "authn",
             "repository": "https://github.com/lektorium-tutor/frontend-app-authn",
             "port": 1999,
+            "env": {
+                "production": {
+                    "MFE_COMMON_VERSION": "master"
+                },
+                "development": {
+                    "MFE_COMMON_VERSION": "master"
+                },
+            },
         },
     },
 }

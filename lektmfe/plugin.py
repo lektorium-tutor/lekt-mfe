@@ -44,6 +44,11 @@ config = {
                 },
             },
         },
+        "MFE_AUTHN_APP": {
+            "name": "authn",
+            "repository": "https://github.com/lektorium-tutor/frontend-app-authn",
+            "port": 1999,
+        }
     },
 }
 

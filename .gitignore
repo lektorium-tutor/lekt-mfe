@@ -5,3 +5,4 @@ __pycache__
 *.egg-info/
 /build/
 /dist/
+lektmfe/templates/mfe/build/mfe/i18n/i18n-merge.js

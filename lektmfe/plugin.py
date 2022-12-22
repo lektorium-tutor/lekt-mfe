@@ -9,7 +9,7 @@ from .__about__ import __version__
 config = {
     "defaults": {
         "VERSION": __version__,
-        "DOCKER_IMAGE": "{{ DOCKER_REGISTRY }}overhangio/openedx-mfe:{{ MFE_VERSION }}",
+        "DOCKER_IMAGE": "{{ DOCKER_REGISTRY }}mastergowen/openedx-mfe:{{ MFE_VERSION }}",
         "HOST": "apps.{{ LMS_HOST }}",
         "COMMON_VERSION": "{{ OPENEDX_COMMON_VERSION }}",
         "CADDY_DOCKER_IMAGE": "{{ DOCKER_IMAGE_CADDY }}",
@@ -51,10 +51,10 @@ config = {
             "port": 1999,
             "env": {
                 "production": {
-                    "MFE_COMMON_VERSION": "master"
+                    "MFE_COMMON_VERSION": "lekt"
                 },
                 "development": {
-                    "MFE_COMMON_VERSION": "master"
+                    "MFE_COMMON_VERSION": "lekt"
                 },
             },
         },
@@ -76,6 +76,19 @@ lekt_hooks.Filters.IMAGES_BUILD.add_item(
         (),
     )
 )
+lekt_hooks.Filters.IMAGES_PULL.add_item(
+    (
+        "mfe",
+        "{{ MFE_DOCKER_IMAGE }}",
+    )
+)
+lekt_hooks.Filters.IMAGES_PUSH.add_item(
+    (
+        "mfe",
+        "{{ MFE_DOCKER_IMAGE }}",
+    )
+)
+
 
 
 @lekt_hooks.Filters.COMPOSE_MOUNTS.add()
@@ -108,11 +121,11 @@ def _add_remote_mfe_image_iff_customized(images, user_config):
     User config is baked into MFE builds, so Lekt cannot host a generic
     pre-built MFE image. Howevever, individual Lekt users may want/need to
     build and host their own MFE image. So, as a compromise, we tell Lekt
-    to push/pull the MFE image if the user has customized it to anything
+    to push/pull the MFE image if the user/projects/urfu/tutor-edx/lekt/venv/bin/python3.8 has customized it to anything
     other than the default image URL.
     """
     image_tag = user_config["MFE_DOCKER_IMAGE"]
-    if not image_tag.startswith("docker.io/overhangio/openedx-mfe:"):
+    if not image_tag.startswith("docker.io/mastergowen/openedx-mfe:"):
         # Image has been customized. Add to list for pulling/pushing.
         images.append(("mfe", image_tag))
     return images

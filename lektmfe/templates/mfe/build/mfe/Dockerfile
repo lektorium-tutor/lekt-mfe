@@ -26,7 +26,7 @@ RUN echo "copying i18n data" \
 ################ {{ app["name"] }} MFE
 ######## {{ app["name"] }} (src)
 FROM base AS {{ app["name"] }}-src
-RUN git clone --single-branch --branch {{ app.get("version", MFE_COMMON_VERSION) }} {{ app["repository"] }} .
+RUN git clone --single-branch --depth 1 --branch {{ app.get("version", MFE_COMMON_VERSION) }} {{ app["repository"] }} .
 RUN stat /openedx/app/src/i18n/messages 2> /dev/null || (echo "missing messages folder" && mkdir -p /openedx/app/src/i18n/messages)
 
 ######## {{ app["name"] }} (i18n)

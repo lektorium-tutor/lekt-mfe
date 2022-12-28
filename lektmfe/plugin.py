@@ -44,20 +44,11 @@ config = {
                 },
             },
         },
-
-#         "MFE_AUTHN_MFE_APP": {
-#             "name": "authn",
-#             "repository": "https://github.com/lektorium-tutor/frontend-app-authn",
-#             "port": 1999,
-#             "env": {
-#                 "production": {
-#                     "MFE_COMMON_VERSION": "lekt"
-#                 },
-#                 "development": {
-#                     "MFE_COMMON_VERSION": "lekt"
-#                 },
-#             },
-#         },
+        "MFE_AUTHN_MFE_APP": {
+            "name": "authn",
+            "repository": "https://github.com/lektorium-tutor/frontend-app-authn",
+            "port": 1999,
+        },
 
     },
 }

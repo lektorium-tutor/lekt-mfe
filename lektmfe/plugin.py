@@ -48,6 +48,16 @@ config = {
             "name": "authn",
             "repository": "https://github.com/lektorium-tutor/frontend-app-authn",
             "port": 1999,
+            "env": {
+                "production": {
+                    "AUTHN_MICROFRONTEND_URL ": "https://apps.class.lektorium.tv/authn",
+                    "DISABLE_ENTERPRISE_LOGIN": "true"
+                },
+                "development": {
+                    "AUTHN_MICROFRONTEND_URL ": "http://apps.class.lektorium.tv:1999/authn",
+                    "DISABLE_ENTERPRISE_LOGIN": "true"
+                },
+            },
         },
 
     },

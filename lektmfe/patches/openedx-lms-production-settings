@@ -17,7 +17,3 @@ AUTHN_MICROFRONTEND_URL = "{% if ENABLE_HTTPS %}https://{% else %}http://{% endi
 LOGIN_REDIRECT_WHITELIST.append("{{ MFE_HOST }}")
 CORS_ORIGIN_WHITELIST.append("{% if ENABLE_HTTPS %}https://{% else %}http://{% endif %}{{ MFE_HOST }}")
 CSRF_TRUSTED_ORIGINS.append("{{ MFE_HOST }}")
-
-{%- if MFE_AUTHN_MFE_APP %}
-    "DISABLE_ENTERPRISE_LOGIN": True,
-{%- endif %}

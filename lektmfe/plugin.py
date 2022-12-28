@@ -13,7 +13,7 @@ config = {
         "HOST": "apps.{{ LMS_HOST }}",
         "COMMON_VERSION": "{{ OPENEDX_COMMON_VERSION }}",
         "CADDY_DOCKER_IMAGE": "{{ DOCKER_IMAGE_CADDY }}",
-        "MFE_ACCOUNT_MFE_APP": {
+        "ACCOUNT_MFE_APP": {
             "name": "account",
             "repository": "https://github.com/lektorium-tutor/frontend-app-account",
             "port": 1997,

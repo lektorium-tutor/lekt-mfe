@@ -13,7 +13,7 @@ config = {
         "HOST": "apps.{{ LMS_HOST }}",
         "COMMON_VERSION": "{{ OPENEDX_COMMON_VERSION }}",
         "CADDY_DOCKER_IMAGE": "{{ DOCKER_IMAGE_CADDY }}",
-        "ACCOUNT_MFE_APP": {
+        "MFE_ACCOUNT_MFE_APP": {
             "name": "account",
             "repository": "https://github.com/lektorium-tutor/frontend-app-account",
             "port": 1997,
@@ -24,17 +24,17 @@ config = {
                 },
             },
         },
-        "GRADEBOOK_MFE_APP": {
+        "MFE_GRADEBOOK_MFE_APP": {
             "name": "gradebook",
             "repository": "https://github.com/lektorium-tutor/frontend-app-gradebook",
             "port": 1994,
         },
-        "LEARNING_MFE_APP": {
+        "MFE_LEARNING_MFE_APP": {
             "name": "learning",
             "repository": "https://github.com/lektorium-tutor/frontend-app-learning",
             "port": 2000,
         },
-        "PROFILE_MFE_APP": {
+        "MFE_PROFILE_MFE_APP": {
             "name": "profile",
             "repository": "https://github.com/lektorium-tutor/frontend-app-profile",
             "port": 1995,

@@ -26,7 +26,7 @@ RUN echo "copying i18n data" \
 ################ {{ app["name"] }} MFE
 ######## {{ app["name"] }} (src)
 FROM base AS {{ app["name"] }}-src
-ADD "https://api.github.com/repos/lektorium-tutor/frontend-app-{{ app["name"] }}/commits?per_page=1" latest_commit
+# ADD "https://api.github.com/repos/lektorium-tutor/frontend-app-{{ app["name"] }}/commits?per_page=1" latest_commit
 RUN git clone {{ app["repository"] }} --branch {{ app.get("version", MFE_COMMON_VERSION) }} --depth 1 .
 RUN stat /openedx/app/src/i18n/messages 2> /dev/null || (echo "missing messages folder" && mkdir -p /openedx/app/src/i18n/messages)
 

@@ -20,6 +20,3 @@ CORS_ORIGIN_WHITELIST.append("http://{{ MFE_HOST }}:{{ app["port"] }}")
 LOGIN_REDIRECT_WHITELIST.append("{{ MFE_HOST }}:{{ app["port"] }}")
 CSRF_TRUSTED_ORIGINS.append("{{ MFE_HOST }}:{{ app["port"] }}")
 {% endfor %}
-{%- if MFE_AUTHN_MFE_APP %}
-    "DISABLE_ENTERPRISE_LOGIN": True,
-{%- endif %}

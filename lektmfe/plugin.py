@@ -24,17 +24,17 @@ config = {
                 },
             },
         },
-        "MFE_GRADEBOOK_MFE_APP": {
+        "GRADEBOOK_MFE_APP": {
             "name": "gradebook",
             "repository": "https://github.com/lektorium-tutor/frontend-app-gradebook",
             "port": 1994,
         },
-        "MFE_LEARNING_MFE_APP": {
+        "LEARNING_MFE_APP": {
             "name": "learning",
             "repository": "https://github.com/lektorium-tutor/frontend-app-learning",
             "port": 2000,
         },
-        "MFE_PROFILE_MFE_APP": {
+        "PROFILE_MFE_APP": {
             "name": "profile",
             "repository": "https://github.com/lektorium-tutor/frontend-app-profile",
             "port": 1995,
@@ -44,7 +44,7 @@ config = {
                 },
             },
         },
-        "MFE_AUTHN_MFE_APP": {
+        "AUTHN_MFE_APP": {
             "name": "authn",
             "repository": "https://github.com/lektorium-tutor/frontend-app-authn",
             "port": 1999,

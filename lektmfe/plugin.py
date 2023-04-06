@@ -63,7 +63,7 @@ ALL_MFES = (
 
 with open(
     os.path.join(
-        pkg_resources.resource_filename("tutormfe", "templates"),
+        pkg_resources.resource_filename("lektmfe", "templates"),
         "mfe",
         "tasks",
         "lms",
@@ -96,9 +96,10 @@ lekt_hooks.Filters.IMAGES_PUSH.add_item(
 )
 
 # Build, pull and push {mfe}-dev images
+# TODO: Fix tags pull images
 for mfe in ALL_MFES:
     name = f"{mfe}-dev"
-    tag = "{{ DOCKER_REGISTRY }}mastergowen/openedx-" + mfe + "-dev:{{ MFE_VERSION }}"
+    tag = "{{ DOCKER_REGISTRY }}overhangio/openedx-" + mfe + "-dev:{{ MFE_VERSION }}"
     lekt_hooks.Filters.IMAGES_BUILD.add_item(
         (
             name,

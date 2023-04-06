@@ -1,2 +1,2 @@
-recursive-include tutormfe/patches *
-recursive-include tutormfe/templates *
+recursive-include lektmfe/patches *
+recursive-include lektmfe/templates *

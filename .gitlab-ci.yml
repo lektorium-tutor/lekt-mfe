@@ -1,10 +1,10 @@
 variables:
-    TUTOR_PLUGIN: mfe
-    TUTOR_IMAGES: mfe account-dev course-authoring-dev discussions-dev authn-dev gradebook-dev learning-dev profile-dev
-    TUTOR_PYPI_PACKAGE: tutor-mfe
+    LEKT_PLUGIN: mfe
+    LEKT_IMAGES: mfe account-dev course-authoring-dev discussions-dev authn-dev gradebook-dev learning-dev profile-dev
+    LEKT_PYPI_PACKAGE: lekt-mfe
     OPENEDX_RELEASE: olive
-    GITHUB_REPO: overhangio/tutor-mfe
+    GITHUB_REPO: lektorium-tutor/lekt-mfe
 
 include:
-  - project: 'community/tutor-ci'
+  - project: 'community/lekt-ci'
     file: 'plugin-gitlab-ci.yml'

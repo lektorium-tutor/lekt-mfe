@@ -2,26 +2,26 @@ from glob import glob
 import os
 import pkg_resources
 
-from tutor import hooks as tutor_hooks
-from tutor.hooks import priorities
+from lekt import hooks as lekt_hooks
+from lekt.hooks import priorities
 
 from .__about__ import __version__
 
 config = {
     "defaults": {
         "VERSION": __version__,
-        "DOCKER_IMAGE": "{{ DOCKER_REGISTRY }}overhangio/openedx-mfe:{{ MFE_VERSION }}",
+        "DOCKER_IMAGE": "{{ DOCKER_REGISTRY }}mastergowen/openedx-mfe:{{ MFE_VERSION }}",
         "HOST": "apps.{{ LMS_HOST }}",
         "COMMON_VERSION": "{{ OPENEDX_COMMON_VERSION }}",
         "CADDY_DOCKER_IMAGE": "{{ DOCKER_IMAGE_CADDY }}",
         "AUTHN_MFE_APP": {
             "name": "authn",
-            "repository": "https://github.com/openedx/frontend-app-authn",
+            "repository": "https://github.com/lektorium-tutor/frontend-app-authn",
             "port": 1999,
         },
         "ACCOUNT_MFE_APP": {
             "name": "account",
-            "repository": "https://github.com/openedx/frontend-app-account",
+            "repository": "https://github.com/lektorium-tutor/frontend-app-account",
             "port": 1997,
         },
         "COURSE_AUTHORING_MFE_APP": {
@@ -36,17 +36,17 @@ config = {
         },
         "GRADEBOOK_MFE_APP": {
             "name": "gradebook",
-            "repository": "https://github.com/openedx/frontend-app-gradebook",
+            "repository": "https://github.com/lektorium-tutor/frontend-app-gradebook",
             "port": 1994,
         },
         "LEARNING_MFE_APP": {
             "name": "learning",
-            "repository": "https://github.com/openedx/frontend-app-learning",
+            "repository": "https://github.com/lektorium-tutor/frontend-app-learning",
             "port": 2000,
         },
         "PROFILE_MFE_APP": {
             "name": "profile",
-            "repository": "https://github.com/openedx/frontend-app-profile",
+            "repository": "https://github.com/lektorium-tutor/frontend-app-profile",
             "port": 1995,
         },
     },
@@ -71,10 +71,10 @@ with open(
     ),
     encoding="utf-8",
 ) as task_file:
-    tutor_hooks.Filters.CLI_DO_INIT_TASKS.add_item(("lms", task_file.read()))
+    lekt_hooks.Filters.CLI_DO_INIT_TASKS.add_item(("lms", task_file.read()))
 
 # Build, pull and push mfe base image
-tutor_hooks.Filters.IMAGES_BUILD.add_item(
+lekt_hooks.Filters.IMAGES_BUILD.add_item(
     (
         "mfe",
         ("plugins", "mfe", "build", "mfe"),
@@ -82,13 +82,13 @@ tutor_hooks.Filters.IMAGES_BUILD.add_item(
         (),
     )
 )
-tutor_hooks.Filters.IMAGES_PULL.add_item(
+lekt_hooks.Filters.IMAGES_PULL.add_item(
     (
         "mfe",
         "{{ MFE_DOCKER_IMAGE }}",
     )
 )
-tutor_hooks.Filters.IMAGES_PUSH.add_item(
+lekt_hooks.Filters.IMAGES_PUSH.add_item(
     (
         "mfe",
         "{{ MFE_DOCKER_IMAGE }}",
@@ -98,8 +98,8 @@ tutor_hooks.Filters.IMAGES_PUSH.add_item(
 # Build, pull and push {mfe}-dev images
 for mfe in ALL_MFES:
     name = f"{mfe}-dev"
-    tag = "{{ DOCKER_REGISTRY }}overhangio/openedx-" + mfe + "-dev:{{ MFE_VERSION }}"
-    tutor_hooks.Filters.IMAGES_BUILD.add_item(
+    tag = "{{ DOCKER_REGISTRY }}mastergowen/openedx-" + mfe + "-dev:{{ MFE_VERSION }}"
+    lekt_hooks.Filters.IMAGES_BUILD.add_item(
         (
             name,
             ("plugins", "mfe", "build", "mfe"),
@@ -107,11 +107,11 @@ for mfe in ALL_MFES:
             (f"--target={mfe}-dev",),
         )
     )
-    tutor_hooks.Filters.IMAGES_PULL.add_item((name, tag))
-    tutor_hooks.Filters.IMAGES_PUSH.add_item((name, tag))
+    lekt_hooks.Filters.IMAGES_PULL.add_item((name, tag))
+    lekt_hooks.Filters.IMAGES_PUSH.add_item((name, tag))
 
 
-@tutor_hooks.Filters.COMPOSE_MOUNTS.add()
+@lekt_hooks.Filters.COMPOSE_MOUNTS.add()
 def _mount_frontend_apps(volumes, name):
     """
     If the user mounts any repo named frontend-app-APPNAME, then make sure
@@ -132,11 +132,11 @@ def _mount_frontend_apps(volumes, name):
 
 # Boilerplate code
 # Add the "templates" folder as a template root
-tutor_hooks.Filters.ENV_TEMPLATE_ROOTS.add_item(
-    pkg_resources.resource_filename("tutormfe", "templates")
+lekt_hooks.Filters.ENV_TEMPLATE_ROOTS.add_item(
+    pkg_resources.resource_filename("lektmfe", "templates")
 )
 # Render the "build" and "apps" folders
-tutor_hooks.Filters.ENV_TEMPLATE_TARGETS.add_items(
+lekt_hooks.Filters.ENV_TEMPLATE_TARGETS.add_items(
     [
         ("mfe/build", "plugins"),
         ("mfe/apps", "plugins"),
@@ -145,7 +145,7 @@ tutor_hooks.Filters.ENV_TEMPLATE_TARGETS.add_items(
 # Load patches from files
 for path in glob(
     os.path.join(
-        pkg_resources.resource_filename("tutormfe", "patches"),
+        pkg_resources.resource_filename("lektmfe", "patches"),
         "*",
     )
 ):
@@ -159,17 +159,17 @@ for path in glob(
             in ["openedx-lms-production-settings", "openedx-lms-development-settings"]
             else priorities.DEFAULT
         )
-        tutor_hooks.Filters.ENV_PATCHES.add_item(
+        lekt_hooks.Filters.ENV_PATCHES.add_item(
             (patch_name, patch_file.read()), priority=priority
         )
 
 # Add configuration entries
-tutor_hooks.Filters.CONFIG_DEFAULTS.add_items(
+lekt_hooks.Filters.CONFIG_DEFAULTS.add_items(
     [(f"MFE_{key}", value) for key, value in config.get("defaults", {}).items()]
 )
-tutor_hooks.Filters.CONFIG_UNIQUE.add_items(
+lekt_hooks.Filters.CONFIG_UNIQUE.add_items(
     [(f"MFE_{key}", value) for key, value in config.get("unique", {}).items()]
 )
-tutor_hooks.Filters.CONFIG_OVERRIDES.add_items(
+lekt_hooks.Filters.CONFIG_OVERRIDES.add_items(
     list(config.get("overrides", {}).items())
 )
